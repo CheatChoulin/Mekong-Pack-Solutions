@@ -476,8 +476,8 @@ footer > p span {
 }
 
 .icon-footer img {
-    width: 40px;
-    height: 40px;
+    width: 24px;
+    height: 24px;
     object-fit: fill;
     border-radius: 100%;
 }

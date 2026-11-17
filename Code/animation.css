@@ -103,12 +103,25 @@ header {
 
 /* ---------- Nav: underline stays on the clicked link ---------- */
 header nav a.active {
-    color: #7C3AED;
+    color: #7C3AED !important;
 }
 
 header nav a.active::after {
-    width: 100%;
+    width: 100% !important;
+    transform-origin: left;
+    animation: grow-bar 0.45s ease-out;
 }
+
+/* ---------- About page: intro text slides in on load ---------- */
+.about-text > * {
+    animation: slide-from-left 0.9s ease-out backwards;
+}
+.about-text > *:nth-child(1) { animation-delay: 0.15s; }
+.about-text > *:nth-child(2) { animation-delay: 0.30s; }
+.about-text > *:nth-child(3) { animation-delay: 0.45s; }
+.about-text > *:nth-child(4) { animation-delay: 0.55s; }
+.about-text > *:nth-child(5) { animation-delay: 0.65s; }
+.about-text > *:nth-child(6) { animation-delay: 0.75s; }
 
 /* ---------- Respect "reduce motion" settings ---------- */
 @media (prefers-reduced-motion: reduce) {
