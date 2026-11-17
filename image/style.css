@@ -1074,7 +1074,7 @@ footer {
 /* Footer logo */
 footer > p {
     grid-area: logo;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 400;
     letter-spacing: 0.5px;
     line-height: 1;
@@ -1096,7 +1096,7 @@ footer > p span {
 
 .left-footer > p {
     max-width: 280px;
-    font-size: 20px;
+    font-size: 12px;
     font-weight: 700;
     line-height: 1.4;
 }
@@ -1109,9 +1109,10 @@ footer > p span {
 }
 
 .icon-footer img {
-    width: 40px;
-    height: 40px;
+    width: 24px;
+    height: 24px;
     object-fit: fill;
+    border-radius: 100%;
 }
 
 /* Middle column: quick links */
@@ -1127,7 +1128,7 @@ footer > p span {
 .middle-footer::before {
     content: "QUICK LINKS";
     margin-bottom: 4px;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
     letter-spacing: 0.5px;
 }
@@ -1135,7 +1136,7 @@ footer > p span {
 .middle-footer a {
     position: relative;
     width: fit-content;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 700;
     color: #000000;
     text-decoration: none;
@@ -1172,13 +1173,13 @@ footer > p span {
 
 .right-footer span {
     margin-bottom: 4px;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
     letter-spacing: 0.5px;
 }
 
 .right-footer p {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 700;
 }
 
@@ -1190,7 +1191,7 @@ footer::after {
     padding-top: 28px;
     border-top: 1px solid #6B7280;
     text-align: center;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 700;
 }
 
