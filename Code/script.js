@@ -185,3 +185,118 @@ header nav a.mp-active::after {
         init();
     }
 })();
+/* =====================================================================
+   Mekong Pack Solutions - nav underline + scroll animations (all pages)
+   Works together with animation.css
+   ===================================================================== */
+document.addEventListener("DOMContentLoaded", () => {
+
+    /* ---------- helper: "/folder/About.html?x#y" -> "about", "/" -> "index" ---------- */
+    function pageKey(path) {
+        let name = String(path || "").split("#")[0].split("?")[0].split("/").pop().toLowerCase();
+        name = name.replace(/\.html?$/, "");
+        return name === "" ? "index" : name;
+    }
+    const isRealLink = (href) => !!href && href !== "#";
+    const current = pageKey(location.pathname);
+
+    /* ===== Nav: underline follows the current page and moves when you click ===== */
+    const navLinks = Array.from(document.querySelectorAll("header nav a"));
+    const contactBtn = document.querySelector("header .btn-header");
+    const contactLink = contactBtn ? contactBtn.querySelector("a") : null;
+
+    function setActive(link) {
+        navLinks.forEach((a) => a.classList.remove("active"));
+        if (contactBtn) contactBtn.classList.remove("active");
+        if (!link) return;
+        if (link === contactLink) contactBtn.classList.add("active");
+        else link.classList.add("active");
+    }
+
+    // Highlight the link that matches the page we are on
+    const match =
+        navLinks.find((a) => isRealLink(a.getAttribute("href")) && pageKey(a.getAttribute("href")) === current) ||
+        (contactLink && isRealLink(contactLink.getAttribute("href")) && pageKey(contactLink.getAttribute("href")) === current
+            ? contactLink
+            : null);
+    setActive(match);
+
+    // Clicking: move the underline now; don't reload if it's the same page or an empty link
+    navLinks.concat(contactLink ? [contactLink] : []).forEach((link) => {
+        link.addEventListener("click", (e) => {
+            const href = link.getAttribute("href");
+            const real = isRealLink(href);
+            if (!real || pageKey(href) === current) e.preventDefault();
+            if (!real && link === contactLink) return; // Contact button has no page yet: do nothing
+            setActive(link);
+        });
+    });
+
+    /* ===== Scroll reveal animations ===== */
+    function reveal(selector, dir, step = 0.12, base = 0, modulo = 0) {
+        document.querySelectorAll(selector).forEach((el, i) => {
+            const d = typeof dir === "function" ? dir(i) : dir;
+            const n = modulo ? i % modulo : i;
+            el.classList.add("reveal", d);
+            el.style.setProperty("--delay", `${base + n * step}s`);
+        });
+    }
+
+    // Home
+    reveal(".container-products", "reveal-left");
+    reveal(".container-pic-product", "reveal-right");
+    reveal(".box-list", (i) => (i % 2 ? "reveal-right" : "reveal-left"));
+    reveal(".container-growing > h3", "reveal-left");
+    reveal(".container-growing > p", "reveal-left", 0.12, 0.1);
+    reveal(".btn-growing", "reveal-right", 0.12, 0.1);
+    reveal(".container-total", "reveal-up");
+    reveal(".container-growing-bottom", "reveal-up");
+    reveal(".containter-last", "reveal-up");
+
+    // About
+    reveal(".label", "reveal-up");
+    reveal(".about-section > h2", "reveal-up");
+    reveal(".cards .card", (i) => ["reveal-left", "reveal-up", "reveal-right"][i % 3], 0.15);
+    reveal(".serve-text", "reveal-left");
+    reveal(".serve-image", "reveal-right");
+    reveal(".serve-banner", "reveal-up");
+
+    // Products
+    reveal(".toolbar", "reveal-up");
+    reveal(".main-card", (i) => (i % 2 ? "reveal-right" : "reveal-left"), 0.1, 0, 4);
+
+    // Contact
+    reveal(".contact-form > h2", "reveal-left");
+    reveal(".contact-form > .description", "reveal-left", 0.12, 0.1);
+    reveal(".enquiry-type", "reveal-left", 0.12, 0.15);
+    reveal(".form-group", "reveal-up", 0.12, 0.1, 2);
+    reveal(".privacy-text", "reveal-up");
+    reveal(".submit-btn", "reveal-up");
+    reveal(".note", "reveal-up", 0.12, 0.1);
+    reveal(".contact-info", "reveal-right");
+    reveal(".partnership-container", "reveal-up");
+
+    // Footer (all pages)
+    reveal("footer .left-footer", "reveal-left");
+    reveal("footer .middle-footer", "reveal-up", 0.12, 0.1);
+    reveal("footer .right-footer", "reveal-right", 0.12, 0.2);
+
+    const items = document.querySelectorAll(".reveal");
+
+    if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("is-visible");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            },
+            { threshold: 0.1, rootMargin: "0px 0px -5% 0px" }
+        );
+        items.forEach((el) => observer.observe(el));
+    } else {
+        items.forEach((el) => el.classList.add("is-visible"));
+    }
+});

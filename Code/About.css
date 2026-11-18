@@ -48,6 +48,7 @@ img {
 }
 
 
+/* ---------- Header ---------- */
 header {
   position: sticky;
   top: 0;
@@ -201,6 +202,7 @@ header nav a:hover::after {
 }
 
 
+/* ---------- Hero ---------- */
 .about-section {
   width: 100%;
 }
@@ -213,11 +215,20 @@ header nav a:hover::after {
   background-position: center;
 }
 
+/* bottom padding reduced so the button sits right under the text */
 .about-text {
-  padding: 70px var(--side-padding);
+  padding: 70px var(--side-padding) 24px;
+}
+
+/* line breaks only on desktop, text wraps naturally on small screens */
+@media (max-width: 900px) {
+  .br-desktop {
+    display: none;
+  }
 }
 
 
+/* ---------- What we offer ---------- */
 .label {
   display: flex;
   align-items: center;
@@ -287,6 +298,68 @@ header nav a:hover::after {
 }
 
 
+/* ---------- Hero buttons ---------- */
+/* padding (not margin) gives the button the same left edge as the text */
+.btn-hero {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  width: fit-content;
+  gap: 16px 24px;
+  padding: 0 var(--side-padding) 70px;
+}
+
+.btn-explore,
+.btn-contact-us {
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.btn-explore a,
+.btn-contact-us a {
+  display: block;
+  padding: 12px 24px;
+  font-size: clamp(14px, 1.2vw, 18px);
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-explore {
+  background: #A855F7;
+  border: 1px solid #A855F7;
+}
+
+.btn-explore a {
+  color: #ffffff;
+}
+
+.btn-explore:hover {
+  background: #7C3AED;
+  border-color: #7C3AED;
+}
+
+.btn-contact-us {
+  background: transparent;
+  border: 1px solid #A855F7;
+}
+
+.btn-contact-us a {
+  color: #1f2937;
+}
+
+.btn-contact-us:hover {
+  background: #7C3AED;
+}
+
+.btn-contact-us a:hover {
+  color: #FFFFFF;
+}
+
+
+/* ---------- Who we serve ---------- */
 .who-serve {
   margin: 50px var(--side-padding);
   font-family: var(--font-body);
@@ -363,6 +436,7 @@ header nav a:hover::after {
 }
 
 
+/* ---------- Tablet / mobile ---------- */
 @media (max-width: 768px) {
   .cards {
     flex-direction: column;
@@ -385,9 +459,49 @@ header nav a:hover::after {
     flex-direction: column;
     align-items: flex-start;
   }
+
+  .about-section>h2 {
+    font-size: 24px;
+    margin-bottom: 28px;
+  }
+
+  .serve-text h2 {
+    margin-bottom: 16px;
+  }
 }
 
-/* Footer */
+/* Small phones */
+@media (max-width: 480px) {
+  .about-text {
+    padding-top: 40px;
+  }
+
+  .about-text h1 {
+    font-size: 26px;
+  }
+
+  /* hero buttons stack if there is more than one */
+  .btn-hero {
+    grid-auto-flow: row;
+    padding-bottom: 40px;
+  }
+
+  .label {
+    margin-top: 40px;
+  }
+
+  .serve-banner {
+    padding: 24px 20px;
+  }
+
+  .explore-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+
+/* ---------- Footer ---------- */
 footer {
   display: grid;
   grid-template-columns: 1.4fr 1fr auto;
@@ -496,7 +610,7 @@ footer>p span {
   width: 100%;
 }
 
-/* Right column: why choose us, ends at the same right edge as the header button */
+/* Right column: why choose us */
 .right-footer {
   grid-area: why;
   justify-self: end;
@@ -529,7 +643,7 @@ footer::after {
   font-weight: 700;
 }
 
-/* Footer small laptops (up to 1000px): Quick Links no longer overlaps the tagline */
+/* Footer small laptops (up to 1000px) */
 @media (max-width: 1000px) {
   .middle-footer {
     margin-left: 0;
